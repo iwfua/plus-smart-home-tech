@@ -5,4 +5,4 @@ public enum HubEventType {
     DEVICE_REMOVED,
     SCENARIO_ADDED,
     SCENARIO_REMOVED
-} 
+}

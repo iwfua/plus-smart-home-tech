@@ -1,18 +1,16 @@
 package ru.yandex.practicum.collector.dto;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
-@Getter @Setter @ToString(callSuper = true)
+@Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SwitchSensorEvent extends SensorEvent {
-    @NotNull
-    private boolean state;
+    boolean state;
 
     @Override
-    @NotNull
     public SensorEventType getType() {
         return SensorEventType.SWITCH_SENSOR_EVENT;
     }
-} 
+}

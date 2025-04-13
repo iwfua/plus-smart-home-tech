@@ -1,21 +1,19 @@
 package ru.yandex.practicum.collector.dto;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
-@Getter @Setter @ToString(callSuper = true)
+@Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TemperatureSensorEvent extends SensorEvent {
-    @NotNull
-    private int temperatureC;
-    
-    @NotNull
-    private int temperatureF;
+
+    int temperatureC;
+
+    int temperatureF;
 
     @Override
-    @NotNull
     public SensorEventType getType() {
         return SensorEventType.TEMPERATURE_SENSOR_EVENT;
     }
-} 
+}

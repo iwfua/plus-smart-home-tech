@@ -6,4 +6,4 @@ public enum DeviceType {
     LIGHT_SENSOR,
     CLIMATE_SENSOR,
     SWITCH_SENSOR
-} 
+}

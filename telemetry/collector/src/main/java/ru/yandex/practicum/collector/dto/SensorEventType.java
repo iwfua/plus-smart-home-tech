@@ -6,4 +6,4 @@ public enum SensorEventType {
     LIGHT_SENSOR_EVENT,
     CLIMATE_SENSOR_EVENT,
     SWITCH_SENSOR_EVENT
-} 
+}

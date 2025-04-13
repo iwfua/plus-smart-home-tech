@@ -1,28 +1,28 @@
 package ru.yandex.practicum.collector.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ScenarioCondition {
-    private String sensorId;
-    private ConditionType type;
-    private ConditionOperation operation;
-    private int value;
-    
-    public enum ConditionType {
-        MOTION,
-        LUMINOSITY,
-        SWITCH,
-        TEMPERATURE,
-        CO2LEVEL,
-        HUMIDITY
-    }
-    
-    public enum ConditionOperation {
-        EQUALS,
-        GREATER_THAN,
-        LOWER_THAN
-    }
-} 
+
+    @NotBlank
+    String sensorId;
+
+    @NotNull
+    ConditionType conditionType;
+
+    @NotNull
+    ConditionOperation conditionOperation;
+
+    @NotNull
+    Integer value;
+}

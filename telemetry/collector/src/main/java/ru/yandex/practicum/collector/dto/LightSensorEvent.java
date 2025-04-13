@@ -1,18 +1,19 @@
 package ru.yandex.practicum.collector.dto;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
-@Getter @Setter @ToString(callSuper = true)
+@Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class LightSensorEvent extends SensorEvent {
-    private int linkQuality;
-    private int luminosity;
+
+    int linkQuality;
+
+    int luminosity;
 
     @Override
-    @NotNull
     public SensorEventType getType() {
         return SensorEventType.LIGHT_SENSOR_EVENT;
     }
-} 
+}

@@ -4,3 +4,79 @@ package telemetry.message.event;
 
 option java_multiple_files = true;
 option java_package = "ru.yandex.practicum.grpc.telemetry.event";
+
+enum DeviceType {
+  MOTION_SENSOR = 0;
+  TEMPERATURE_SENSOR = 1;
+  LIGHT_SENSOR = 2;
+  CLIMATE_SENSOR = 3;
+  SWITCH_SENSOR = 4;
+}
+
+enum ConditionType {
+  MOTION = 0;
+  LUMINOSITY = 1;
+  SWITCH = 2;
+  TEMPERATURE = 3;
+  CO2LEVEL = 4;
+  HUMIDITY = 5;
+}
+
+enum ConditionOperation {
+  EQUALS = 0;
+  GREATER_THAN = 1;
+  LOWER_THAN = 2;
+}
+
+enum ActionType {
+  ACTIVATE = 0;
+  DEACTIVATE = 1;
+  INVERSE = 2;
+  SET_VALUE = 3;
+}
+
+message ScenarioCondition {
+  string sensor_id = 1;
+  ConditionType type = 2;
+  ConditionOperation operation = 3;
+  oneof value {
+    int32 int_value = 4;
+    bool bool_value = 5;
+  }
+}
+
+message DeviceAction {
+  string sensor_id = 1;
+  ActionType type = 2;
+  int32 value = 3;
+}
+
+message DeviceAddedEvent {
+  string id = 1;
+  DeviceType type = 2;
+}
+
+message DeviceRemovedEvent {
+  string id = 1;
+}
+
+message ScenarioAddedEvent {
+  string name = 1;
+  repeated ScenarioCondition conditions = 2;
+  repeated DeviceAction actions = 3;
+}
+
+message ScenarioRemovedEvent {
+  string name = 1;
+}
+
+message HubEvent {
+  string hub_id = 1;
+  int64 timestamp = 2;
+  oneof payload {
+    DeviceAddedEvent device_added = 3;
+    DeviceRemovedEvent device_removed = 4;
+    ScenarioAddedEvent scenario_added = 5;
+    ScenarioRemovedEvent scenario_removed = 6;
+  }
+}
