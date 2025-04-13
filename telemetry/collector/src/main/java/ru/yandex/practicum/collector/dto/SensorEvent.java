@@ -3,11 +3,9 @@ package ru.yandex.practicum.collector.dto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
@@ -25,6 +23,7 @@ import java.time.Instant;
         @JsonSubTypes.Type(value = SwitchSensorEvent.class, name = "SWITCH_SENSOR_EVENT")
 })
 @Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class SensorEvent {
     @NotBlank
@@ -33,7 +32,7 @@ public abstract class SensorEvent {
     @NotBlank
     String hubId;
 
-    Instant timestamp;
+    Instant timestamp = Instant.now();
 
     public abstract SensorEventType getType();
 }

@@ -18,10 +18,10 @@ public class ScenarioCondition {
     String sensorId;
 
     @NotNull
-    ConditionType conditionType;
+    ConditionType type;
 
     @NotNull
-    ConditionOperation conditionOperation;
+    ConditionOperation operation;
 
     @NotNull
     Integer value;

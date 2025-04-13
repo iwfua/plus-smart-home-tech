@@ -4,7 +4,6 @@ import org.apache.avro.specific.SpecificRecordBase;
 import ru.yandex.practicum.collector.dto.*;
 import ru.yandex.practicum.kafka.telemetry.event.*;
 
-
 import java.util.Objects;
 
 public class HubEventMapper {
@@ -83,8 +82,8 @@ public class HubEventMapper {
     public static ScenarioConditionAvro toScenarioConditionAvro(ScenarioCondition scenarioCondition) {
         return ScenarioConditionAvro.newBuilder()
                 .setSensorId(scenarioCondition.getSensorId())
-                .setType(toConditionTypeAvro(scenarioCondition.getConditionType()))
-                .setOperation(toConditionOperationAvro(scenarioCondition.getConditionOperation()))
+                .setType(toConditionTypeAvro(scenarioCondition.getType()))
+                .setOperation(toConditionOperationAvro(scenarioCondition.getOperation()))
                 .setValue(scenarioCondition.getValue())
                 .build();
     }
