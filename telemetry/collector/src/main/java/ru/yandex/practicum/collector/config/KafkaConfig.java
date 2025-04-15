@@ -1,5 +1,6 @@
 package ru.yandex.practicum.collector.config;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -13,12 +14,9 @@ import org.springframework.kafka.config.TopicBuilder;
 import java.util.Properties;
 
 @Configuration
+@RequiredArgsConstructor
 public class KafkaConfig {
     private final KafkaProducerProperties kafkaProperties;
-
-    public KafkaConfig(KafkaProducerProperties kafkaProperties) {
-        this.kafkaProperties = kafkaProperties;
-    }
 
     @Bean(destroyMethod = "close")
     public Producer<String, SpecificRecordBase> producer() {

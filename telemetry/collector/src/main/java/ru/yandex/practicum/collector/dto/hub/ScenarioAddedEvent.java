@@ -1,4 +1,4 @@
-package ru.yandex.practicum.collector.dto;
+package ru.yandex.practicum.collector.dto.hub;
 
 import lombok.AccessLevel;
 import lombok.Getter;

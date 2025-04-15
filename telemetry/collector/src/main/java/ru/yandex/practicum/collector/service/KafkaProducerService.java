@@ -1,7 +1,7 @@
 package ru.yandex.practicum.collector.service;
 
-import ru.yandex.practicum.collector.dto.HubEvent;
-import ru.yandex.practicum.collector.dto.SensorEvent;
+import ru.yandex.practicum.collector.dto.hub.HubEvent;
+import ru.yandex.practicum.collector.dto.sensor.SensorEvent;
 
 public interface KafkaProducerService {
     void sendSensorEvent(SensorEvent event);

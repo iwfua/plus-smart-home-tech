@@ -1,7 +1,17 @@
 package ru.yandex.practicum.collector.mapper;
 
 import org.apache.avro.specific.SpecificRecordBase;
-import ru.yandex.practicum.collector.dto.*;
+import ru.yandex.practicum.collector.dto.hub.ActionType;
+import ru.yandex.practicum.collector.dto.hub.ConditionOperation;
+import ru.yandex.practicum.collector.dto.hub.ConditionType;
+import ru.yandex.practicum.collector.dto.hub.DeviceAction;
+import ru.yandex.practicum.collector.dto.hub.DeviceAddedEvent;
+import ru.yandex.practicum.collector.dto.hub.DeviceRemovedEvent;
+import ru.yandex.practicum.collector.dto.hub.DeviceType;
+import ru.yandex.practicum.collector.dto.hub.HubEvent;
+import ru.yandex.practicum.collector.dto.hub.ScenarioAddedEvent;
+import ru.yandex.practicum.collector.dto.hub.ScenarioCondition;
+import ru.yandex.practicum.collector.dto.hub.ScenarioRemovedEvent;
 import ru.yandex.practicum.kafka.telemetry.event.*;
 
 import java.util.Objects;

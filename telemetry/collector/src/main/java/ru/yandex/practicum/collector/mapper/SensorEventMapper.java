@@ -1,7 +1,12 @@
 package ru.yandex.practicum.collector.mapper;
 
 import org.apache.avro.specific.SpecificRecordBase;
-import ru.yandex.practicum.collector.dto.*;
+import ru.yandex.practicum.collector.dto.sensor.ClimateSensorEvent;
+import ru.yandex.practicum.collector.dto.sensor.LightSensorEvent;
+import ru.yandex.practicum.collector.dto.sensor.MotionSensorEvent;
+import ru.yandex.practicum.collector.dto.sensor.SensorEvent;
+import ru.yandex.practicum.collector.dto.sensor.SwitchSensorEvent;
+import ru.yandex.practicum.collector.dto.sensor.TemperatureSensorEvent;
 import ru.yandex.practicum.kafka.telemetry.event.*;
 
 

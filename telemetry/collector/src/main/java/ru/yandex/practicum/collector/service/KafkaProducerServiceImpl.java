@@ -7,7 +7,8 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.collector.config.KafkaProducerProperties;
-import ru.yandex.practicum.collector.dto.*;
+import ru.yandex.practicum.collector.dto.hub.HubEvent;
+import ru.yandex.practicum.collector.dto.sensor.SensorEvent;
 import ru.yandex.practicum.collector.mapper.HubEventMapper;
 import ru.yandex.practicum.collector.mapper.SensorEventMapper;
 
