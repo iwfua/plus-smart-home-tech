@@ -2,10 +2,23 @@ syntax = "proto3";
 
 package telemetry.message.event;
 
+import "google/protobuf/timestamp.proto";
+
 option java_multiple_files = true;
 option java_package = "ru.yandex.practicum.grpc.telemetry.event";
 
-enum DeviceType {
+message HubEventProto {
+  string hub_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  oneof payload {
+    DeviceAddedEventProto device_added = 3;
+    DeviceRemovedEventProto device_removed = 4;
+    ScenarioAddedEventProto scenario_added = 5;
+    ScenarioRemovedEventProto scenario_removed = 6;
+  }
+}
+
+enum DeviceTypeProto {
   MOTION_SENSOR = 0;
   TEMPERATURE_SENSOR = 1;
   LIGHT_SENSOR = 2;
@@ -13,7 +26,16 @@ enum DeviceType {
   SWITCH_SENSOR = 4;
 }
 
-enum ConditionType {
+message DeviceAddedEventProto {
+  string id = 1;
+  DeviceTypeProto type = 2;
+}
+
+message DeviceRemovedEventProto {
+  string id = 1;
+}
+
+enum ConditionTypeProto {
   MOTION = 0;
   LUMINOSITY = 1;
   SWITCH = 2;
@@ -22,61 +44,41 @@ enum ConditionType {
   HUMIDITY = 5;
 }
 
-enum ConditionOperation {
+enum ConditionOperationProto {
   EQUALS = 0;
   GREATER_THAN = 1;
   LOWER_THAN = 2;
 }
 
-enum ActionType {
+message ScenarioConditionProto {
+  string sensor_id = 1;
+  ConditionTypeProto type = 2;
+  ConditionOperationProto operation = 3;
+  oneof value {
+    bool bool_value = 4;
+    int32 int_value = 5;
+  }
+}
+
+enum ActionTypeProto {
   ACTIVATE = 0;
   DEACTIVATE = 1;
   INVERSE = 2;
   SET_VALUE = 3;
 }
 
-message ScenarioCondition {
+message DeviceActionProto {
   string sensor_id = 1;
-  ConditionType type = 2;
-  ConditionOperation operation = 3;
-  oneof value {
-    int32 int_value = 4;
-    bool bool_value = 5;
-  }
+  ActionTypeProto type = 2;
+  optional int32 value = 3;
 }
 
-message DeviceAction {
-  string sensor_id = 1;
-  ActionType type = 2;
-  int32 value = 3;
-}
-
-message DeviceAddedEvent {
-  string id = 1;
-  DeviceType type = 2;
-}
-
-message DeviceRemovedEvent {
-  string id = 1;
-}
-
-message ScenarioAddedEvent {
+message ScenarioAddedEventProto {
   string name = 1;
-  repeated ScenarioCondition conditions = 2;
-  repeated DeviceAction actions = 3;
+  repeated ScenarioConditionProto condition = 2;
+  repeated DeviceActionProto action = 3;
 }
 
-message ScenarioRemovedEvent {
+message ScenarioRemovedEventProto {
   string name = 1;
-}
-
-message HubEvent {
-  string hub_id = 1;
-  int64 timestamp = 2;
-  oneof payload {
-    DeviceAddedEvent device_added = 3;
-    DeviceRemovedEvent device_removed = 4;
-    ScenarioAddedEvent scenario_added = 5;
-    ScenarioRemovedEvent scenario_removed = 6;
-  }
 }
