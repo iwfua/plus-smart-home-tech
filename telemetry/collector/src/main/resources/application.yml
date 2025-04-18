@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: collector
+
+kafka:
+  config:
+    bootstrap-servers: localhost:9092
+    client-id: producer-1
+    producer-key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    producer-value-serializer: ru.yandex.practicum.collector.serializer.AvroSerializer
+    sensor-events-topic: telemetry.sensors.v1
+    hub-events-topic: telemetry.hubs.v1
