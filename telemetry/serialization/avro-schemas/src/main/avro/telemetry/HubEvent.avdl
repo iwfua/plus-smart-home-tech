@@ -31,6 +31,15 @@ protocol HubEventProtocol {
         SET_VALUE
     }
 
+    record DeviceAddedEventAvro {
+        string id;
+        DeviceTypeAvro type;
+    }
+
+    record DeviceRemovedEventAvro {
+        string id;
+    }
+
     record ScenarioConditionAvro {
         string sensor_id;
         ConditionTypeAvro type;
@@ -41,16 +50,7 @@ protocol HubEventProtocol {
     record DeviceActionAvro {
         string sensor_id;
         ActionTypeAvro type;
-        union { null, int } value = null;
-    }
-
-    record DeviceAddedEventAvro {
-        string id;
-        DeviceTypeAvro type;
-    }
-
-    record DeviceRemovedEventAvro {
-        string id;
+        int? value = null;
     }
 
     record ScenarioAddedEventAvro {
@@ -65,13 +65,7 @@ protocol HubEventProtocol {
 
     record HubEventAvro {
         string hub_id;
-        long timestamp;
-        union {
-            DeviceAddedEventAvro,
-            DeviceRemovedEventAvro,
-            ScenarioAddedEventAvro,
-            ScenarioRemovedEventAvro
-        } payload;
+        timestamp_ms timestamp;
+        union { DeviceAddedEventAvro, DeviceRemovedEventAvro, ScenarioAddedEventAvro, ScenarioRemovedEventAvro } payload;
     }
-
 }
