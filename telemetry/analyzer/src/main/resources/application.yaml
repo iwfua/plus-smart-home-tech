@@ -3,9 +3,18 @@ spring:
     name: analyzer
   cloud:
     config:
+      discovery:
+        enabled: true
+        serviceId: config-server
       fail-fast: true
       retry:
         useRandomPolicy: true
         max-interval: 6000
   config:
-    import: configserver:http://localhost:8888
+    import: "configserver:"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname:localhost}:${eureka.instance.port:8761}/eureka/
+server:
+  port: 0
