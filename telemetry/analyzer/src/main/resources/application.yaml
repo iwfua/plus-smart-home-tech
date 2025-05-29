@@ -1,60 +1,11 @@
-analyzer:
-  kafka:
-    hubConsumer:
-      properties:
-        bootstrap.servers: localhost:9092
-        group.id: telemetry.analyzer.hubs
-        key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value.deserializer: ru.yandex.practicum.kafka.deserialization.HubEventDeserializer
-        enable.auto.commit: false
-      topics:
-        hubs-events: telemetry.hubs.v1
-    snapshotConsumer:
-      properties:
-        bootstrap.servers: localhost:9092
-        group.id: telemetry.analyzer.snapshots
-        key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value.deserializer: ru.yandex.practicum.kafka.deserialization.SensorsSnapshotDeserializer
-        enable.auto.commit: false
-      topics:
-        snapshots-events: telemetry.snapshots.v1
-grpc:
-  client:
-    hub-router:
-      address: 'static://localhost:59090'
-      enableKeepAlive: true
-      keepAliveWithoutCalls: true
-      negotiationType: plaintext
-
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5438/analyzer-db
-    username: analyzer
-    password: analyzer
-  jpa:
-    show_sql: true
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-  sql:
-    init:
-      mode: always
-
-server:
-  port: 8070
-
----
-
-spring:
+  application:
+    name: analyzer
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        useRandomPolicy: true
+        max-interval: 6000
   config:
-    activate:
-      on-profile: test
-  datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:analyzer
-    username: analyzer
-    password: analyzer
+    import: configserver:http://localhost:8888
