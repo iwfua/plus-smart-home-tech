@@ -1,6 +1,7 @@
 package ru.yandex.practicum.sht.commerce.sc.service;
 
 import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.practicum.sht.commerce.ia.dto.sc.ChangeProductQuantityRequest;
@@ -17,17 +18,12 @@ import java.util.*;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartMapper shoppingCartMapper;
     private final WarehouseClient warehouseClient;
-
-    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, ShoppingCartMapper shoppingCartMapper, WarehouseClient warehouseClient) {
-        this.shoppingCartRepository = shoppingCartRepository;
-        this.shoppingCartMapper = shoppingCartMapper;
-        this.warehouseClient = warehouseClient;
-    }
 
     @Override
     public ShoppingCartDto getShoppingCart(String username) {

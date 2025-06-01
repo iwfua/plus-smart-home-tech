@@ -10,19 +10,22 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+
+@RestController
+@RequestMapping("/api/v1/shopping-cart")
 public interface ShoppingCartOperations {
     @GetMapping
-    public ShoppingCartDto getShoppingCart(@RequestParam @NotNull String username);
+    ShoppingCartDto getShoppingCart(@RequestParam @NotNull String username);
 
     @PutMapping
-    public ShoppingCartDto addProductsToShoppingCart(@RequestParam @NotNull String username, @RequestBody @NotNull Map<UUID, Long> products);
+    ShoppingCartDto addProductsToShoppingCart(@RequestParam @NotNull String username, @RequestBody @NotNull Map<UUID, Long> products);
 
     @DeleteMapping
-    public void deactivateShoppingCart(@RequestParam @NotNull String username);
+    void deactivateShoppingCart(@RequestParam @NotNull String username);
 
     @PostMapping("/remove")
-    public ShoppingCartDto removeProductsFromShoppingCart(@RequestParam @NotNull String username, @RequestBody @NotNull Set<UUID> products);
+    ShoppingCartDto removeProductsFromShoppingCart(@RequestParam @NotNull String username, @RequestBody @NotNull Set<UUID> products);
 
     @PostMapping("/change-quantity")
-    public ShoppingCartDto changeProductQuantity(@RequestParam @NotNull String username, @RequestBody @Valid ChangeProductQuantityRequest productQuantity);
+    ShoppingCartDto changeProductQuantity(@RequestParam @NotNull String username, @RequestBody @Valid ChangeProductQuantityRequest productQuantity);
 }

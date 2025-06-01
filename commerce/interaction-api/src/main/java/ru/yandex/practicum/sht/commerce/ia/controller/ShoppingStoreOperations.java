@@ -11,7 +11,10 @@ import ru.yandex.practicum.sht.commerce.ia.dto.ss.dict.ProductCategory;
 import java.util.List;
 import java.util.UUID;
 
+@RestController
+@RequestMapping("/api/v1/shopping-store")
 public interface ShoppingStoreOperations {
+
     @GetMapping
     List<ProductDto> getSortedProducts(@RequestParam @NotNull ProductCategory category, Pageable pageable);
 
@@ -29,5 +32,4 @@ public interface ShoppingStoreOperations {
 
     @GetMapping("/{productId}")
     ProductDto getProduct(@PathVariable @NotNull UUID productId);
-
 }
