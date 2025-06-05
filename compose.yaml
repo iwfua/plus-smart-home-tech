@@ -16,8 +16,6 @@ services:
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,PLAINTEXT_HOST://0.0.0.0:9092'
       CLUSTER_ID: 'K0EA9p0yEe6MkAAAAkKsEg'
-    volumes:
-      - kafka-data:/var/lib/kafka/data
 
   kafka-init-topics:
     image: confluentinc/confluent-local:7.4.3
@@ -45,8 +43,6 @@ services:
       - POSTGRES_PASSWORD=analyzer
       - POSTGRES_USER=analyzer
       - POSTGRES_DB=analyzer-db
-    volumes:
-      - analyzer-db-data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
@@ -62,8 +58,6 @@ services:
       - POSTGRES_PASSWORD=shopping-store
       - POSTGRES_USER=shopping-store
       - POSTGRES_DB=shopping-store-db
-    volumes:
-      - shopping-store-db-data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
@@ -79,8 +73,6 @@ services:
       - POSTGRES_PASSWORD=shopping-cart
       - POSTGRES_USER=shopping-cart
       - POSTGRES_DB=shopping-cart-db
-    volumes:
-      - shopping-cart-db-data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
@@ -96,17 +88,8 @@ services:
       - POSTGRES_PASSWORD=warehouse
       - POSTGRES_USER=warehouse
       - POSTGRES_DB=warehouse-db
-    volumes:
-      - warehouse-db-data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
       interval: 5s
       retries: 10
-
-volumes:
-  kafka-data:
-  analyzer-db-data:
-  shopping-store-db-data:
-  shopping-cart-db-data:
-  warehouse-db-data:
