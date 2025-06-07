@@ -11,6 +11,8 @@ import ru.yandex.practicum.sht.commerce.ia.dto.order.ProductReturnRequest;
 import java.util.List;
 import java.util.UUID;
 
+@RestController
+@RequestMapping("/api/v1/order")
 public interface OrderOperations {
     @GetMapping
     List<OrderDto> getOrder(@RequestParam @NotNull String username, Pageable pageable);

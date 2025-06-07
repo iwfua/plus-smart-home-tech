@@ -1,6 +1,7 @@
 package ru.yandex.practicum.sht.commerce.warehouse.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.sht.commerce.ia.controller.WarehouseOperations;
@@ -11,13 +12,10 @@ import ru.yandex.practicum.sht.commerce.warehouse.service.WarehouseService;
 import java.util.Map;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class WarehouseController implements WarehouseOperations {
 
     private final WarehouseService warehouseService;
-
-    public WarehouseController(WarehouseService warehouseService) {
-        this.warehouseService = warehouseService;
-    }
 
     public void addProductToWarehouse(@Valid NewProductInWarehouseRequest warehouseRequest) {
         warehouseService.addProductToWarehouse(warehouseRequest);
