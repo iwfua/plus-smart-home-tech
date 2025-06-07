@@ -16,6 +16,8 @@ services:
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,PLAINTEXT_HOST://0.0.0.0:9092'
       CLUSTER_ID: 'K0EA9p0yEe6MkAAAAkKsEg'
+    volumes:
+      - kafka_data:/var/lib/kafka/data
 
   kafka-init-topics:
     image: confluentinc/confluent-local:7.4.3
@@ -43,6 +45,8 @@ services:
       - POSTGRES_PASSWORD=analyzer
       - POSTGRES_USER=analyzer
       - POSTGRES_DB=analyzer-db
+    volumes:
+      - analyzer_db_data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
@@ -58,6 +62,8 @@ services:
       - POSTGRES_PASSWORD=shopping-store
       - POSTGRES_USER=shopping-store
       - POSTGRES_DB=shopping-store-db
+    volumes:
+      - shopping_store_db_data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
@@ -73,6 +79,8 @@ services:
       - POSTGRES_PASSWORD=shopping-cart
       - POSTGRES_USER=shopping-cart
       - POSTGRES_DB=shopping-cart-db
+    volumes:
+      - shopping_cart_db_data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
@@ -88,8 +96,71 @@ services:
       - POSTGRES_PASSWORD=warehouse
       - POSTGRES_USER=warehouse
       - POSTGRES_DB=warehouse-db
+    volumes:
+      - warehouse_db_data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s
       interval: 5s
       retries: 10
+
+  order-db:
+    image: postgres:16.1
+    container_name: postgres-shm-commerce-order-db
+    ports:
+      - "6545:5432"
+    environment:
+      - POSTGRES_PASSWORD=order
+      - POSTGRES_USER=order
+      - POSTGRES_DB=order-db
+    volumes:
+      - order_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
+      timeout: 5s
+      interval: 5s
+      retries: 10
+
+  payment-db:
+    image: postgres:16.1
+    container_name: postgres-shm-commerce-payment-db
+    ports:
+      - "6546:5432"
+    environment:
+      - POSTGRES_PASSWORD=payment
+      - POSTGRES_USER=payment
+      - POSTGRES_DB=payment-db
+    volumes:
+      - payment_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
+      timeout: 5s
+      interval: 5s
+      retries: 10
+
+  delivery-db:
+    image: postgres:16.1
+    container_name: postgres-shm-commerce-delivery-db
+    ports:
+      - "6547:5432"
+    environment:
+      - POSTGRES_PASSWORD=delivery
+      - POSTGRES_USER=delivery
+      - POSTGRES_DB=delivery-db
+    volumes:
+      - delivery_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
+      timeout: 5s
+      interval: 5s
+      retries: 10
+
+volumes:
+  kafka_data:
+  analyzer_db_data:
+  shopping_store_db_data:
+  shopping_cart_db_data:
+  warehouse_db_data:
+  order_db_data:
+  payment_db_data:
+  delivery_db_data:
